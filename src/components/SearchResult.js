@@ -19,16 +19,15 @@ class SearchResult extends Component<Props> {
   navigationHandler = (property) => {
     this.props.navigation.navigate(
      'Property', { property: property  }
-     ); 
+     );
   }
-  
+
 
   renderItems = ({item}) => {
     return (
       <TouchableHighlight
-        onPress={this.navigationHandler(item)}
-        underlayColor='#dddddd'
-        style={styles.items} >
+        onPress={() => this.navigationHandler(item)}
+        underlayColor='#dddddd' >
         <View style={styles.rowContainer}>
           <Image source={{uri: item.thumb_url}}
             style={styles.thumbImage} />
@@ -42,10 +41,10 @@ class SearchResult extends Component<Props> {
   };
 
   render() {
-    const { params } = this.props.navigation.state;
+    //const { params } = this.props.navigation.state;
     return(
       <FlatList
-        data={params.listings}
+        data={this.props.navigation.state.params.listings}
         keyExtractor={this.keyExtractor}
         renderItem={this.renderItems}/>
     )
@@ -65,9 +64,6 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 2,
     marginRight: 10,
-  },
-  textContainer: {
-
   },
   priceText: {
    fontSize: 18,
